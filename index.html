@@ -1,62 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homegrowbook - Smart Indoor Growing</title>
-    <style>
-        body {
-            background-color: #121212;
-            color: #e0e0e0;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #1e1e1e;
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            color: #66bb6a;
-        }
-        .container {
-            padding: 20px;
-        }
-        .button {
-            background-color: #66bb6a;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .button:hover {
-            opacity: 0.9;
-        }
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #1e1e1e;
-            position: absolute;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
+    <title>Homegrowbook Landing Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
 </head>
 <body>
+    <nav>
+        <h1>Homegrowbook</h1>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
     <header>
-        <h1>Welcome to Homegrowbook</h1>
-        <p>Your ultimate Smart Indoor Growing companion</p>
+        <div class="hero">
+            <h2>Willkommen bei Homegrowbook</h2>
+            <p>Die zentrale Anlaufstelle für alle Ihre Homegrow-Bedürfnisse.</p>
+            <button>Dashboard Ansehen</button>
+        </div>
     </header>
-    <div class="container">
-        <h2>About Us</h2>
-        <p>Homegrowbook helps you grow plants indoors with smart technology, tailored for every enthusiast.</p>
-        <button class="button" onclick="alert('Thanks for your interest!');">Get Started</button>
-    </div>
+
+    <section class="mock-dashboard">
+        <h3>Mock Dashboard</h3>
+        <p>Hier kommt der Dashboard-Inhalt.</p>
+    </section>
+
     <footer>
-        <p>&copy; 2025 Homegrowbook. All rights reserved.</p>
+        <p>&copy; <span id="year"></span> Homegrowbook. Alle Rechte vorbehalten.</p>
     </footer>
+
+    <script>
+        // Automatic year update
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
