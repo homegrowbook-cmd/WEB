@@ -1,1 +1,21 @@
-{\n  "short_name": "homegrowbook",\n  "name": "homegrowbook",\n  "start_url": ".",\n  "display": "standalone",\n  "background_color": "#050708",\n  "theme_color": "#57ff92",\n  "icons": [\n    {\n      "src": "logo.png",\n      "sizes": "192x192",\n      "type": "image/png"\n    },\n    {\n      "src": "logo.png",\n      "sizes": "512x512",\n      "type": "image/png"\n    }\n  ]\n}
+{
+  "short_name": "KERTU Hanselmann",
+  "name": "KERTU Hanselmann Frisuren",
+  "description": "Ihr Friseursalon für höchste Friseurkunst in Leonberg",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8b7355",
+  "icons": [
+    {
+      "src": "images/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
