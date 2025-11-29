@@ -36,7 +36,7 @@
   <header class="header">
     <div class="container">
       <nav class="nav">
-        <a href="index.html" class="logo">
+        <a href="index.html" class="logo" id="mainLogo">
           <span class="logo-kertu">KERTU</span>
           <span class="logo-sub">Hanselmann Frisuren</span>
         </a>
@@ -854,6 +854,128 @@
       initSlider('instagramSlider', '.slider-prev', '.slider-next');
       initSlider('reviewsSlider', '.reviews-prev', '.reviews-next');
     });
+
+    // ============================================
+    // ADMIN PANEL ACCESS - 3x Logo Click
+    // ============================================
+    (function() {
+      let logoClickCount = 0;
+      let logoClickTimer = null;
+      const CLICK_THRESHOLD = 3;
+      const CLICK_TIMEOUT = 1000; // 1 second window for clicks
+
+      const logo = document.getElementById('mainLogo');
+      if (logo) {
+        logo.addEventListener('click', function(e) {
+          logoClickCount++;
+          
+          // Clear any existing timer
+          if (logoClickTimer) {
+            clearTimeout(logoClickTimer);
+          }
+          
+          // Check if we reached the threshold
+          if (logoClickCount >= CLICK_THRESHOLD) {
+            e.preventDefault();
+            logoClickCount = 0;
+            
+            // Check if password is required
+            const savedPassword = localStorage.getItem('homegrow_password');
+            if (savedPassword) {
+              // Password is set - show password modal
+              showAdminPasswordModal();
+            } else {
+              // No password set - direct access
+              sessionStorage.setItem('homegrow_admin_access', 'true');
+              window.location.href = 'admin.html';
+            }
+          } else {
+            // Reset counter after timeout
+            logoClickTimer = setTimeout(() => {
+              logoClickCount = 0;
+            }, CLICK_TIMEOUT);
+          }
+        });
+      }
+
+      // Create and show password modal
+      function showAdminPasswordModal() {
+        // Remove existing modal if any
+        const existing = document.getElementById('adminPasswordModal');
+        if (existing) existing.remove();
+
+        const modalHTML = `
+          <div id="adminPasswordModal" class="modal active" style="z-index: 10000;">
+            <div class="modal-overlay" onclick="closeAdminPasswordModal()"></div>
+            <div class="modal-content" style="max-width: 400px;">
+              <button class="modal-close" onclick="closeAdminPasswordModal()">&times;</button>
+              <div class="modal-header">
+                <h2>🔐 Admin Zugang</h2>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Passwort</label>
+                  <input type="password" id="adminPasswordInput" class="form-input" placeholder="Passwort eingeben" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+                </div>
+                <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">
+                  Geben Sie das Admin-Passwort ein, um fortzufahren.
+                </p>
+              </div>
+              <div class="modal-footer" style="display: flex; gap: 1rem; justify-content: flex-end; padding-top: 1rem;">
+                <button onclick="closeAdminPasswordModal()" class="btn btn-outline" style="padding: 0.75rem 1.5rem; background: transparent; border: 1px solid #ddd; cursor: pointer; border-radius: 4px;">Abbrechen</button>
+                <button onclick="verifyAdminPassword()" class="btn btn-primary" style="padding: 0.75rem 1.5rem; background: #2e7d32; color: white; border: none; cursor: pointer; border-radius: 4px;">Anmelden</button>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        document.body.style.overflow = 'hidden';
+        
+        // Focus password input
+        setTimeout(() => {
+          document.getElementById('adminPasswordInput').focus();
+        }, 100);
+
+        // Enter key support
+        document.getElementById('adminPasswordInput').addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            verifyAdminPassword();
+          }
+        });
+      }
+
+      // Make functions global
+      window.closeAdminPasswordModal = function() {
+        const modal = document.getElementById('adminPasswordModal');
+        if (modal) modal.remove();
+        document.body.style.overflow = '';
+      };
+
+      window.verifyAdminPassword = function() {
+        const input = document.getElementById('adminPasswordInput');
+        const enteredPassword = input.value;
+        const savedPassword = localStorage.getItem('homegrow_password');
+        
+        if (savedPassword && btoa(enteredPassword) === savedPassword) {
+          sessionStorage.setItem('homegrow_admin_access', 'true');
+          window.location.href = 'admin.html';
+        } else {
+          input.style.borderColor = '#f44336';
+          input.style.animation = 'shake 0.5s ease';
+          setTimeout(() => {
+            input.style.animation = '';
+          }, 500);
+        }
+      };
+    })();
   </script>
+  <style>
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+  </style>
 </body>
 </html>
