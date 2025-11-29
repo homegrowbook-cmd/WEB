@@ -2,543 +2,429 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>homegrowbook – Smart Indoor Growing</title>
+  <title>KERTU Hanselmann Frisuren – Leonberg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  
   <!-- Basic Meta -->
-  <meta name="description" content="Smart Indoor Growing mit homegrowbook: Ein vollautomatisiertes Grow-System auf Basis von Raspberry Pi, Home Assistant, Sensoren & Dokumentation. Alles offen, transparent und für alle Grower nutzbar.">
-  <meta name="theme-color" content="#020304">
-
-  <!-- Favicon / Icons – Logo wird NICHT verändert, nur verwendet -->
-  <link rel="icon" type="image/png" sizes="32x32" href="./9A9F0B7F-D874-407D-B8BB-FD17E4C85A9F.png">
-  <link rel="apple-touch-icon" href="./9A9F0B7F-D874-407D-B8BB-FD17E4C85A9F.png">
-
-  <!-- Styles -->
-  <style>
-    :root {
-      --bg: #050708;
-      --bg-elevated: #0c1014;
-      --bg-soft: #11161c;
-      --accent: #57ff92;
-      --accent-soft: rgba(87, 255, 146, 0.12);
-      --accent-border: rgba(87, 255, 146, 0.4);
-      --text-main: #f6f7fb;
-      --text-muted: #a3a8b5;
-      --pill-bg: #121820;
-      --border-subtle: #1f2630;
-      --radius-lg: 18px;
-      --radius-pill: 999px;
-      --shadow-soft: 0 30px 80px rgba(0, 0, 0, 0.6);
-      --max-width: 1040px;
-    }
-
-    * {
-      box-sizing: border-box;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: radial-gradient(circle at top, #101620 0, #050708 55%, #000000 100%);
-      color: var(--text-main);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
-      min-height: 100%;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .page {
-      width: 100%;
-      max-width: var(--max-width);
-      padding: 16px 18px 40px;
-    }
-
-    @media (min-width: 768px) {
-      .page {
-        padding: 24px 24px 64px;
-      }
-    }
-
-    /* NAVBAR */
-
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 10px 14px;
-      border-radius: var(--radius-lg);
-      background: rgba(6, 9, 12, 0.96);
-      border: 1px solid var(--border-subtle);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
-      position: sticky;
-      top: 10px;
-      z-index: 10;
-      backdrop-filter: blur(18px);
-    }
-
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .logo {
-      height: 28px;
-      width: 28px;
-      border-radius: 8px;
-      display: block;
-    }
-
-    @media (min-width: 768px) {
-      .logo {
-        height: 32px;
-        width: 32px;
-      }
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .brand-name {
-      font-weight: 600;
-      font-size: 1rem;
-      letter-spacing: 0.01em;
-      color: var(--text-main);
-    }
-
-    .brand-sub {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-muted);
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 7px 16px;
-      border-radius: var(--radius-pill);
-      border: 1px solid transparent;
-      font-size: 0.86rem;
-      font-weight: 500;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.18s ease-out;
-      white-space: nowrap;
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-main);
-      border-color: var(--border-subtle);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--accent-border);
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .btn-accent {
-      background: var(--accent);
-      color: #020304;
-      border-color: var(--accent);
-      box-shadow: 0 12px 32px rgba(87, 255, 146, 0.35);
-    }
-
-    .btn-accent:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 16px 40px rgba(87, 255, 146, 0.45);
-    }
-
-    .btn-pill-outline {
-      background: var(--accent-soft);
-      border-color: var(--accent-border);
-      color: var(--accent);
-      font-size: 0.82rem;
-      padding: 4px 12px;
-      border-radius: var(--radius-pill);
-    }
-
-    .btn-pill-outline span {
-      font-weight: 500;
-    }
-
-    /* HERO */
-
-    .hero {
-      margin-top: 26px;
-      background: radial-gradient(circle at top left, #151d26 0, #0b1016 45%, #050708 100%);
-      border-radius: 28px;
-      padding: 22px 18px 26px;
-      border: 1px solid rgba(73, 90, 110, 0.35);
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-    }
-
-    @media (min-width: 768px) {
-      .hero {
-        margin-top: 34px;
-        padding: 30px 28px 32px;
-        display: grid;
-        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
-        gap: 30px;
-      }
-    }
-
-    .hero-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 3px 11px;
-      border-radius: var(--radius-pill);
-      background: rgba(9, 15, 22, 0.86);
-      border: 1px solid var(--accent-border);
-      color: var(--accent);
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-bottom: 12px;
-    }
-
-    .hero-label-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 16px rgba(87, 255, 146, 0.8);
-    }
-
-    .hero-title {
-      font-size: 2rem;
-      line-height: 1.1;
-      margin: 0 0 10px;
-    }
-
-    .hero-title span.highlight {
-      color: var(--accent);
-    }
-
-    @media (min-width: 768px) {
-      .hero-title {
-        font-size: 2.6rem;
-      }
-    }
-
-    .hero-subtitle {
-      margin: 0 0 20px;
-      color: var(--text-muted);
-      font-size: 0.98rem;
-      max-width: 36rem;
-    }
-
-    .hero-subtitle strong {
-      color: var(--text-main);
-      font-weight: 500;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .hero-badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .pill {
-      padding: 4px 10px;
-      border-radius: var(--radius-pill);
-      background: rgba(9, 13, 18, 0.96);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .pill strong {
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    /* HERO RIGHT VISUAL */
-
-    .hero-visual {
-      margin-top: 16px;
-      background: radial-gradient(circle at 20% 0, rgba(87, 255, 146, 0.18), transparent 55%),
-                  radial-gradient(circle at 80% 10%, rgba(120, 180, 255, 0.12), transparent 60%),
-                  linear-gradient(160deg, #05080e, #020304);
-      border-radius: 24px;
-      border: 1px solid rgba(95, 118, 146, 0.5);
-      position: relative;
-      padding: 18px 16px 16px;
-      overflow: hidden;
-    }
-
-    @media (min-width: 768px) {
-      .hero-visual {
-        margin-top: 0;
-      }
-    }
-
-    .hero-visual-inner {
-      border-radius: 18px;
-      border: 1px solid rgba(9, 13, 20, 0.9);
-      background: radial-gradient(circle at top, #050709, #010203);
-      padding: 16px 16px 18px;
-      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9);
-    }
-
-    .mock-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-      font-size: 0.76rem;
-      color: var(--text-muted);
-    }
-
-    .mock-header-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .mock-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--accent);
-    }
-
-    .mock-tag {
-      padding: 2px 9px;
-      border-radius: var(--radius-pill);
-      background: rgba(10, 15, 21, 0.9);
-      border: 1px solid rgba(87, 255, 146, 0.4);
-      color: var(--accent);
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .mock-body {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .mock-main-text {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .mock-main-text strong {
-      color: var(--text-main);
-      font-weight: 500;
-    }
-
-    .mock-metrics {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 8px;
-      font-size: 0.76rem;
-    }
-
-    .metric-card {
-      padding: 6px 8px;
-      border-radius: 12px;
-      background: rgba(10, 15, 21, 0.94);
-      border: 1px solid rgba(40, 55, 75, 0.9);
-    }
-
-    .metric-label {
-      color: var(--text-muted);
-      font-size: 0.7rem;
-    }
-
-    .metric-value {
-      display: flex;
-      align-items: baseline;
-      gap: 4px;
-      margin-top: 2px;
-    }
-
-    .metric-value strong {
-      font-size: 0.98rem;
-      font-weight: 600;
-    }
-
-    .metric-value span {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-
-    @media (max-width: 480px) {
-      .mock-body {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* FOOTER MINI */
-
-    .footer {
-      margin-top: 24px;
-      padding: 14px 4px 0;
-      border-top: 1px solid rgba(32, 40, 52, 0.9);
-      color: var(--text-muted);
-      font-size: 0.74rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    .footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  <meta name="description" content="KERTU Hanselmann Frisuren in Leonberg – Ihr Friseursalon für höchste Friseurkunst, individuelle Beratung und kreative Kollektionen. INCUT 3D-Methode für mehr Volumen und Struktur.">
+  <meta name="keywords" content="Friseur Leonberg, KERTU, Hanselmann, Frisuren, Haarschnitt, INCUT, Balayage, Strähnen, Friseurmeister">
+  <meta name="theme-color" content="#1a1a1a">
+  <meta name="author" content="KERTU Hanselmann Frisuren">
+  
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="KERTU Hanselmann Frisuren – Leonberg">
+  <meta property="og:description" content="Ihr Friseursalon für höchste Friseurkunst in Leonberg. Entdecken Sie unsere Kollektionen und die innovative INCUT 3D-Methode.">
+  <meta property="og:type" content="website">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon.png">
+  <link rel="apple-touch-icon" href="./images/favicon.png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-  <div class="page">
-
-    <!-- NAVBAR -->
-    <header class="navbar">
-      <div class="nav-left">
-        <img src="./9A9F0B7F-D874-407D-B8BB-FD17E4C85A9F.png"
-             alt="homegrowbook Logo"
-             class="logo">
-        <div class="brand-text">
-          <span class="brand-name">homegrowbook</span>
-          <span class="brand-sub">Smart Indoor Growing</span>
-        </div>
-      </div>
-      <div class="nav-right">
-        <a class="btn btn-ghost" href="#projekt">Projekt</a>
-        <a class="btn btn-accent" href="https://instagram.com/homegrowbook" target="_blank" rel="noreferrer">
-          Instagram
+  <!-- HEADER / NAVIGATION -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="index.html" class="logo">
+          <span class="logo-kertu">KERTU</span>
+          <span class="logo-sub">Hanselmann Frisuren</span>
         </a>
+        
+        <button class="nav-toggle" aria-label="Navigation öffnen">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        <ul class="nav-menu">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li class="has-dropdown">
+            <a href="salon/">Salon</a>
+            <ul class="dropdown">
+              <li><a href="salon/index.html">Über uns</a></li>
+              <li><a href="salon/mitarbeiter.html">Team</a></li>
+              <li><a href="salon/oeffnungszeiten.html">Öffnungszeiten</a></li>
+              <li><a href="salon/anfahrt.html">Anfahrt</a></li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="frisuren/">Frisuren</a>
+            <ul class="dropdown">
+              <li><a href="frisuren/index.html">Alle Frisuren</a></li>
+              <li><a href="frisuren/broken-waves-c47.html">BROKEN WAVES C47</a></li>
+              <li><a href="frisuren/damen.html">Damen</a></li>
+              <li><a href="frisuren/herren.html">Herren</a></li>
+            </ul>
+          </li>
+          <li><a href="incut.html">INCUT</a></li>
+          <li><a href="news/">News</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="hero-welcome">Willkommen bei</span>
+        KERTU Hanselmann Frisuren
+      </h1>
+      <p class="hero-subtitle">
+        Ihr Salon für höchste Friseurkunst in Leonberg
+      </p>
+      <div class="hero-cta">
+        <a href="kontakt.html" class="btn btn-primary">Termin vereinbaren</a>
+        <a href="frisuren/" class="btn btn-secondary">Frisuren entdecken</a>
       </div>
-    </header>
+    </div>
+    <div class="hero-scroll">
+      <span>Mehr erfahren</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
 
-    <!-- HERO -->
-    <main class="hero" id="projekt">
-      <section>
-        <div class="hero-label">
-          <span class="hero-label-dot"></span>
-          <span>Projekt · Live im Aufbau</span>
+  <!-- INTRO SECTION -->
+  <section class="intro section">
+    <div class="container">
+      <div class="intro-content">
+        <div class="intro-text">
+          <span class="section-label">Über uns</span>
+          <h2>Höchste Friseurkunst<br>mit Leidenschaft</h2>
+          <p>
+            Bei KERTU Hanselmann Frisuren in Leonberg vereinen wir traditionelles Handwerk 
+            mit innovativen Techniken. Unser erfahrenes Team aus Friseurmeistern und Stylisten 
+            berät Sie individuell und kreiert Ihren perfekten Look.
+          </p>
+          <p>
+            Mit der einzigartigen <strong>KERTU INCUT 3D-Methode</strong> schaffen wir 
+            Haarschnitte mit mehr Volumen, Struktur und natürlicher Bewegung – für einen 
+            Style, der länger hält und leichter zu pflegen ist.
+          </p>
+          <a href="salon/" class="btn btn-outline">Mehr über uns</a>
         </div>
+        <div class="intro-image">
+          <div class="image-placeholder">
+            <span>Salon Ambiente</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <h1 class="hero-title">
-          Smart Indoor Growing<br>
-          <span class="highlight">mit homegrowbook</span>
-        </h1>
+  <!-- SERVICES SECTION -->
+  <section class="services section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Unsere Leistungen</span>
+        <h2>Was wir für Sie tun</h2>
+      </div>
+      
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">✂️</div>
+          <h3>Haarschnitte</h3>
+          <p>Professionelle Schnitte mit der innovativen INCUT 3D-Methode für mehr Volumen und Struktur.</p>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">🎨</div>
+          <h3>Coloration</h3>
+          <p>Farbberatung und Coloration mit hochwertigen Produkten – von natürlich bis kreativ.</p>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">✨</div>
+          <h3>Balayage & Strähnen</h3>
+          <p>Moderne Färbetechniken für natürliche Farbverläufe und individuelle Highlights.</p>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">💇</div>
+          <h3>Styling</h3>
+          <p>Ob Alltag oder besonderer Anlass – wir kreieren Ihren perfekten Look.</p>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">👔</div>
+          <h3>Herren</h3>
+          <p>Klassische und moderne Herrenschnitte mit Präzision und Stil.</p>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">💆</div>
+          <h3>Beratung</h3>
+          <p>Individuelle Typberatung für Schnitt, Farbe und Styling, abgestimmt auf Ihre Persönlichkeit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <p class="hero-subtitle">
-          Ein vollautomatisiertes Grow-System auf Basis von <strong>Raspberry Pi</strong>,
-          <strong>Home Assistant</strong>, Sensoren &amp; Dokumentation.
-          Alles offen, transparent und für alle Grower nutzbar.
+  <!-- KOLLEKTION SECTION -->
+  <section class="kollektion section">
+    <div class="container">
+      <div class="kollektion-content">
+        <div class="kollektion-text">
+          <span class="section-label">Aktuelle Kollektion</span>
+          <h2>BROKEN WAVES C47</h2>
+          <p class="kollektion-tagline">"Sei mehr Du selbst. Sei das Meer."</p>
+          <p>
+            Unsere neueste KERTU Kollektion wurde vom Meer inspiriert – von seiner Kraft, 
+            Dynamik und Vielseitigkeit. Starke Einschnitte, sichtbare Stufen und weich 
+            auslaufende Konturen schaffen unverwechselbare Styles.
+          </p>
+          <p>
+            Die Frisuren dieser Kollektion können flexibel auf jede Gesichtsform abgestimmt 
+            werden. Die Farbpalette reicht von warmen Sonnenuntergangs-Tönen bis zu kühlen 
+            Ozean-Nuancen.
+          </p>
+          <a href="frisuren/broken-waves-c47.html" class="btn btn-primary">Kollektion ansehen</a>
+        </div>
+        <div class="kollektion-images">
+          <div class="image-placeholder large">
+            <span>BROKEN WAVES C47</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INCUT TEASER -->
+  <section class="incut-teaser section section-dark">
+    <div class="container">
+      <div class="incut-content">
+        <div class="incut-badge">Exklusiv bei KERTU</div>
+        <h2>KERTU INCUT<br>Die 3D-Methode</h2>
+        <p>
+          Eine revolutionäre Haarschneidetechnik, die dem Haar sofort mehr Volumen, 
+          Stand und natürliche Bewegung verleiht. Der Schnitt hält länger seine Form 
+          und braucht weniger Styling im Alltag.
         </p>
-
-        <div class="hero-actions">
-          <a class="btn btn-accent" href="#projekt-log">
-            Projekt ansehen
-          </a>
-          <a class="btn btn-ghost" href="https://instagram.com/homegrowbook" target="_blank" rel="noreferrer">
-            Instagram Updates
-          </a>
-        </div>
-
-        <div class="hero-badge-row">
-          <div class="pill"><strong>Raspberry&nbsp;Pi</strong> als Grow-Hub</div>
-          <div class="pill">Automationen mit Home&nbsp;Assistant</div>
-          <div class="pill">Sensoren, VPD, Licht &amp; Klima</div>
-        </div>
-      </section>
-
-      <!-- HERO VISUAL / MOCKUP -->
-      <aside class="hero-visual" aria-hidden="true">
-        <div class="hero-visual-inner" id="projekt-log">
-          <div class="mock-header">
-            <div class="mock-header-left">
-              <span class="mock-dot"></span>
-              <span>Live-Dashboard</span>
-            </div>
-            <span class="mock-tag">Open Setup</span>
+        <div class="incut-features">
+          <div class="incut-feature">
+            <span class="feature-icon">📐</span>
+            <span>Mehr Volumen & Stand</span>
           </div>
-
-          <div class="mock-body">
-            <div class="mock-main-text">
-              <strong>homegrowbook Grow-Hub</strong><br>
-              Raspberry&nbsp;Pi + Home&nbsp;Assistant überwachen Klima, Licht
-              und Verbrauch. Alle Einstellungen, Sensoren und Grows werden
-              als offene Dokumentation veröffentlicht.
-            </div>
-
-            <div class="mock-metrics">
-              <div class="metric-card">
-                <div class="metric-label">Zelt · Klima</div>
-                <div class="metric-value">
-                  <strong>24.3°C</strong><span>/ 58&nbsp;% rF</span>
-                </div>
-              </div>
-              <div class="metric-card">
-                <div class="metric-label">Leaf-VPD</div>
-                <div class="metric-value">
-                  <strong>1.25</strong><span>kPa · optimal</span>
-                </div>
-              </div>
-              <div class="metric-card">
-                <div class="metric-label">Status</div>
-                <div class="metric-value">
-                  <strong>Autonom</strong><span>Bewässerung &amp; Logging</span>
-                </div>
-              </div>
-            </div>
+          <div class="incut-feature">
+            <span class="feature-icon">⏱️</span>
+            <span>Länger haltbar</span>
+          </div>
+          <div class="incut-feature">
+            <span class="feature-icon">💨</span>
+            <span>Leichtes Styling</span>
           </div>
         </div>
-      </aside>
-    </main>
+        <a href="incut.html" class="btn btn-primary">Mehr über INCUT</a>
+      </div>
+    </div>
+  </section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-      <span>© <span id="year"></span> homegrowbook · Projekt im Aufbau</span>
-      <span>
-        Folgen auf
-        <a href="https://instagram.com/homegrowbook" target="_blank" rel="noreferrer">Instagram</a>
-      </span>
-    </footer>
-  </div>
+  <!-- TEAM TEASER -->
+  <section class="team-teaser section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Unser Team</span>
+        <h2>Profis mit Leidenschaft</h2>
+        <p>Lernen Sie unser erfahrenes Team aus Friseurmeistern, KERTU-Trainern und Diplom-Coloristen kennen.</p>
+      </div>
+      
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-image">
+            <div class="image-placeholder circle">ML</div>
+          </div>
+          <h3>Maximilian Luis</h3>
+          <p class="team-role">Geschäftsführer & KERTU-Trainer</p>
+        </div>
+        
+        <div class="team-card">
+          <div class="team-image">
+            <div class="image-placeholder circle">AE</div>
+          </div>
+          <h3>Alexander Elovikov</h3>
+          <p class="team-role">Top Stylist & Diplom-Colorist</p>
+        </div>
+        
+        <div class="team-card">
+          <div class="team-image">
+            <div class="image-placeholder circle">LS</div>
+          </div>
+          <h3>Laura Süssenböck</h3>
+          <p class="team-role">Friseurmeisterin & Diplom-Coloristin</p>
+        </div>
+      </div>
+      
+      <div class="team-cta">
+        <a href="salon/mitarbeiter.html" class="btn btn-outline">Das ganze Team</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT TEASER -->
+  <section class="kontakt-teaser section section-alt">
+    <div class="container">
+      <div class="kontakt-grid">
+        <div class="kontakt-info">
+          <span class="section-label">Kontakt & Anfahrt</span>
+          <h2>Besuchen Sie uns</h2>
+          
+          <div class="kontakt-details">
+            <div class="kontakt-item">
+              <span class="kontakt-icon">📍</span>
+              <div>
+                <strong>Adresse</strong><br>
+                Bahnhofstraße 47<br>
+                71229 Leonberg
+              </div>
+            </div>
+            
+            <div class="kontakt-item">
+              <span class="kontakt-icon">📞</span>
+              <div>
+                <strong>Telefon</strong><br>
+                <a href="tel:+497152-22216">07152 / 22216</a>
+              </div>
+            </div>
+            
+            <div class="kontakt-item">
+              <span class="kontakt-icon">✉️</span>
+              <div>
+                <strong>E-Mail</strong><br>
+                <a href="mailto:hanselmann@kertu.de">hanselmann@kertu.de</a>
+              </div>
+            </div>
+            
+            <div class="kontakt-item">
+              <span class="kontakt-icon">🕐</span>
+              <div>
+                <strong>Öffnungszeiten</strong><br>
+                Di–Fr: 9–18 Uhr<br>
+                Sa: 8–13 Uhr
+              </div>
+            </div>
+          </div>
+          
+          <a href="kontakt.html" class="btn btn-primary">Termin vereinbaren</a>
+        </div>
+        
+        <div class="kontakt-map">
+          <div class="map-placeholder">
+            <span>Karte<br>Bahnhofstraße 47, Leonberg</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="logo-kertu">KERTU</span>
+            <span class="logo-sub">Hanselmann Frisuren</span>
+          </div>
+          <p>
+            Ihr Friseursalon für höchste Friseurkunst in Leonberg. 
+            Teil des KERTU Hair Professionals Netzwerks.
+          </p>
+        </div>
+        
+        <div class="footer-nav">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="salon/">Salon</a></li>
+            <li><a href="frisuren/">Frisuren</a></li>
+            <li><a href="incut.html">INCUT</a></li>
+            <li><a href="news/">News</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-contact">
+          <h4>Kontakt</h4>
+          <p>
+            Bahnhofstraße 47<br>
+            71229 Leonberg<br><br>
+            Tel: <a href="tel:+497152-22216">07152 / 22216</a><br>
+            E-Mail: <a href="mailto:hanselmann@kertu.de">hanselmann@kertu.de</a>
+          </p>
+        </div>
+        
+        <div class="footer-hours">
+          <h4>Öffnungszeiten</h4>
+          <p>
+            <strong>Montag:</strong> geschlossen<br>
+            <strong>Di–Fr:</strong> 9:00 – 18:00 Uhr<br>
+            <strong>Samstag:</strong> 8:00 – 13:00 Uhr<br>
+            <strong>Sonntag:</strong> geschlossen
+          </p>
+          <p class="small">Nach Vereinbarung bis 19:00 Uhr</p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </div>
+        <div class="footer-copyright">
+          © <span id="year"></span> KERTU Hanselmann Frisuren · Alle Rechte vorbehalten
+        </div>
+        <div class="footer-partner">
+          <span>Partner von</span>
+          <a href="https://www.kertu.de" target="_blank" rel="noopener">KERTU Hair Professionals</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script>
-    // Jahreszahl automatisch setzen
+    // Set current year
     document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Mobile navigation toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (navToggle) {
+      navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+      });
+    }
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+    
+    // Header scroll effect
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
   </script>
 </body>
 </html>

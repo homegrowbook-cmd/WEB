@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Kontakt – KERTU Hanselmann Frisuren</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kontaktieren Sie KERTU Hanselmann Frisuren in Leonberg. Termin vereinbaren unter 07152 / 22216 oder per E-Mail an hanselmann@kertu.de.">
+  <meta name="theme-color" content="#1a1a1a">
+  
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header scrolled">
+    <div class="container">
+      <nav class="nav">
+        <a href="index.html" class="logo">
+          <span class="logo-kertu">KERTU</span>
+          <span class="logo-sub">Hanselmann Frisuren</span>
+        </a>
+        
+        <button class="nav-toggle" aria-label="Navigation öffnen">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li class="has-dropdown">
+            <a href="salon/">Salon</a>
+            <ul class="dropdown">
+              <li><a href="salon/index.html">Über uns</a></li>
+              <li><a href="salon/mitarbeiter.html">Team</a></li>
+              <li><a href="salon/oeffnungszeiten.html">Öffnungszeiten</a></li>
+              <li><a href="salon/anfahrt.html">Anfahrt</a></li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="frisuren/">Frisuren</a>
+            <ul class="dropdown">
+              <li><a href="frisuren/index.html">Alle Frisuren</a></li>
+              <li><a href="frisuren/broken-waves-c47.html">BROKEN WAVES C47</a></li>
+              <li><a href="frisuren/damen.html">Damen</a></li>
+              <li><a href="frisuren/herren.html">Herren</a></li>
+            </ul>
+          </li>
+          <li><a href="incut.html">INCUT</a></li>
+          <li><a href="news/">News</a></li>
+          <li><a href="kontakt.html" class="active">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Kontakt</h1>
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> / Kontakt
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <section class="page-content">
+    <div class="container">
+      <div class="content-grid">
+        <div class="content-text">
+          <span class="section-label">Wir freuen uns auf Sie</span>
+          <h2>Termin vereinbaren</h2>
+          <p>
+            Für einen Termin erreichen Sie uns am schnellsten telefonisch. 
+            Alternativ können Sie uns auch eine E-Mail schreiben oder das 
+            Kontaktformular nutzen.
+          </p>
+          
+          <div class="contact-methods">
+            <div class="contact-method">
+              <span class="contact-icon">📞</span>
+              <div>
+                <strong>Telefon</strong>
+                <a href="tel:+497152-22216" class="contact-link">07152 / 22216</a>
+              </div>
+            </div>
+            
+            <div class="contact-method">
+              <span class="contact-icon">✉️</span>
+              <div>
+                <strong>E-Mail</strong>
+                <a href="mailto:hanselmann@kertu.de" class="contact-link">hanselmann@kertu.de</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Contact Form -->
+          <h3 class="mt-4">Kontaktformular</h3>
+          <form class="contact-form" action="#" method="POST">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="name">Name *</label>
+                <input type="text" id="name" name="name" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">E-Mail *</label>
+                <input type="email" id="email" name="email" class="form-input" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="phone">Telefon</label>
+              <input type="tel" id="phone" name="phone" class="form-input">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="subject">Betreff</label>
+              <select id="subject" name="subject" class="form-select">
+                <option value="">Bitte wählen...</option>
+                <option value="termin">Terminanfrage</option>
+                <option value="beratung">Beratung</option>
+                <option value="allgemein">Allgemeine Anfrage</option>
+                <option value="feedback">Feedback</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="message">Ihre Nachricht *</label>
+              <textarea id="message" name="message" class="form-textarea" required></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input type="checkbox" name="privacy" required>
+                <span>Ich habe die <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a> gelesen und akzeptiere diese. *</span>
+              </label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Nachricht senden</button>
+          </form>
+        </div>
+        
+        <div class="content-sidebar">
+          <h4>Adresse</h4>
+          <p>
+            <strong>KERTU Hanselmann Frisuren</strong><br>
+            Bahnhofstraße 47<br>
+            71229 Leonberg
+          </p>
+          
+          <div class="map-placeholder" style="aspect-ratio: 1; margin: 1.5rem 0;">
+            <div style="text-align: center;">
+              <span>📍</span><br>
+              <span style="font-size: 0.8rem;">Karte</span>
+            </div>
+          </div>
+          
+          <a href="https://www.google.com/maps/search/?api=1&query=Bahnhofstraße+47+71229+Leonberg" 
+             target="_blank" 
+             rel="noopener"
+             class="btn btn-outline" 
+             style="width: 100%; margin-bottom: 0.5rem;">
+            In Google Maps öffnen
+          </a>
+          <a href="salon/anfahrt.html" class="btn btn-outline" style="width: 100%;">
+            Anfahrt & Parken
+          </a>
+          
+          <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #ddd;">
+          
+          <h4>Öffnungszeiten</h4>
+          <p>
+            <strong>Montag:</strong> geschlossen<br>
+            <strong>Di–Fr:</strong> 9:00–18:00 Uhr<br>
+            <strong>Samstag:</strong> 8:00–13:00 Uhr<br>
+            <strong>Sonntag:</strong> geschlossen
+          </p>
+          <p style="font-size: 0.85rem; color: #666;">
+            Nach telefonischer Vereinbarung sind Di–Fr auch Termine bis 19:00 Uhr möglich.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="logo-kertu">KERTU</span>
+            <span class="logo-sub">Hanselmann Frisuren</span>
+          </div>
+          <p>Ihr Friseursalon für höchste Friseurkunst in Leonberg.</p>
+        </div>
+        
+        <div class="footer-nav">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="salon/">Salon</a></li>
+            <li><a href="frisuren/">Frisuren</a></li>
+            <li><a href="incut.html">INCUT</a></li>
+            <li><a href="news/">News</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-contact">
+          <h4>Kontakt</h4>
+          <p>
+            Bahnhofstraße 47<br>
+            71229 Leonberg<br><br>
+            Tel: <a href="tel:+497152-22216">07152 / 22216</a><br>
+            E-Mail: <a href="mailto:hanselmann@kertu.de">hanselmann@kertu.de</a>
+          </p>
+        </div>
+        
+        <div class="footer-hours">
+          <h4>Öffnungszeiten</h4>
+          <p>
+            <strong>Montag:</strong> geschlossen<br>
+            <strong>Di–Fr:</strong> 9:00–18:00 Uhr<br>
+            <strong>Samstag:</strong> 8:00–13:00 Uhr
+          </p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </div>
+        <div class="footer-copyright">
+          © <span id="year"></span> KERTU Hanselmann Frisuren
+        </div>
+        <div class="footer-partner">
+          <a href="https://www.kertu.de" target="_blank" rel="noopener">KERTU Hair Professionals</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    if (navToggle) {
+      navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+      });
+    }
+  </script>
+  
+  <style>
+    .contact-methods {
+      display: grid;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .contact-method {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: var(--color-gray-100);
+      border-radius: var(--radius-lg);
+    }
+    
+    .contact-icon {
+      font-size: 2rem;
+    }
+    
+    .contact-link {
+      font-size: 1.25rem;
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+    
+    .contact-form {
+      margin-top: 2rem;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--color-gray-600);
+      cursor: pointer;
+    }
+    
+    .checkbox-label input {
+      margin-top: 0.25rem;
+    }
+    
+    .checkbox-label a {
+      color: var(--color-primary);
+    }
+    
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</body>
+</html>
