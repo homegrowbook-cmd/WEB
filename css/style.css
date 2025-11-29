@@ -1971,6 +1971,116 @@ button:focus-visible {
   }
 }
 
+/* Booking Modal with Iframe */
+.modal-content-booking {
+  max-width: 900px;
+  width: 95%;
+  max-height: 95vh;
+}
+
+.booking-step {
+  display: block;
+}
+
+.booking-iframe-container {
+  position: relative;
+  padding: 0;
+  min-height: 500px;
+}
+
+.booking-iframe-container iframe {
+  width: 100%;
+  height: 600px;
+  min-height: 500px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-gray-100);
+}
+
+.iframe-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-white);
+  z-index: 5;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-gray-200);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.iframe-loading p {
+  margin-top: var(--spacing-md);
+  color: var(--color-gray-500);
+  font-size: 0.9rem;
+}
+
+.btn-back {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  margin-left: auto;
+  transition: color var(--transition-fast);
+}
+
+.btn-back:hover {
+  color: var(--color-primary-dark);
+}
+
+.modal-content-booking .modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-content-booking .modal-header h2 {
+  padding-right: 0;
+}
+
+.booking-iframe-footer {
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .booking-iframe-container iframe {
+    height: 500px;
+    min-height: 400px;
+  }
+  
+  .modal-content-booking {
+    max-height: 90vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .booking-iframe-container iframe {
+    height: 450px;
+    min-height: 350px;
+  }
+  
+  .booking-iframe-container {
+    min-height: 400px;
+  }
+}
+
 /* ============================================
    SOCIAL SECTION
    ============================================ */
