@@ -600,7 +600,6 @@
             src="about:blank"
             data-src="https://www.e-cut.de/online-buchung/index.php?salon=hanselmann_frisuren_leonberg"
             title="Online Appointment Booking - KERTU Hanselmann Hairdressing"
-            frameborder="0"
             allowfullscreen>
           </iframe>
           <div class="iframe-loading">
@@ -691,7 +690,8 @@
       document.getElementById('bookingNotice').style.display = 'none';
       document.getElementById('bookingIframe').style.display = 'block';
       const iframe = document.getElementById('ecutFrame');
-      const loadingEl = document.querySelector('.iframe-loading');
+      const bookingIframeEl = document.getElementById('bookingIframe');
+      const loadingEl = bookingIframeEl ? bookingIframeEl.querySelector('.iframe-loading') : null;
       if (iframe && iframe.dataset.src) {
         // Show loading indicator
         if (loadingEl) loadingEl.style.display = 'flex';
