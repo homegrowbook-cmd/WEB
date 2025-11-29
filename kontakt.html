@@ -257,36 +257,68 @@
   <!-- BOOKING MODAL -->
   <div id="bookingModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-overlay" onclick="closeBookingModal()"></div>
-    <div class="modal-content">
+    <div class="modal-content modal-content-booking">
       <button class="modal-close" onclick="closeBookingModal()" aria-label="Schließen">&times;</button>
-      <div class="modal-header">
-        <h2 id="modalTitle">Wichtiger Hinweis zur Online-Buchung</h2>
-      </div>
-      <div class="modal-body">
-        <div class="modal-notice">
-          <p><strong>Strähnen & Balayage:</strong></p>
-          <p>
-            Bitte buchen Sie Strähnen und Balayage-Behandlungen aus zeitplanungstechnischen Gründen 
-            <strong>telefonisch</strong> bei uns.
-          </p>
-          <p class="modal-phone">
-            <a href="tel:+497152-22216">📞 07152 / 22216</a>
-          </p>
-          <hr>
-          <p class="modal-note">
-            Falls Sie online Behandlungen wie Ansatzfarbe buchen, ist es uns an diesen Terminen 
-            leider aus zeitlichen Gründen nicht möglich, zusätzlich Foliensträhnen durchzuführen.
-          </p>
+      
+      <!-- Notice Step -->
+      <div id="bookingNotice" class="booking-step">
+        <div class="modal-header">
+          <h2 id="modalTitle">Wichtiger Hinweis zur Online-Buchung</h2>
+        </div>
+        <div class="modal-body">
+          <div class="modal-notice">
+            <p><strong>Strähnen & Balayage:</strong></p>
+            <p>
+              Bitte buchen Sie Strähnen und Balayage-Behandlungen aus zeitplanungstechnischen Gründen 
+              <strong>telefonisch</strong> bei uns.
+            </p>
+            <p class="modal-phone">
+              <a href="tel:+497152-22216">📞 07152 / 22216</a>
+            </p>
+            <hr>
+            <p class="modal-note">
+              Falls Sie online Behandlungen wie Ansatzfarbe buchen, ist es uns an diesen Terminen 
+              leider aus zeitlichen Gründen nicht möglich, zusätzlich Foliensträhnen durchzuführen.
+            </p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button onclick="closeBookingModal()" class="btn btn-outline">Abbrechen</button>
+          <button onclick="showBookingIframe()" class="btn btn-primary">
+            Verstanden – Online buchen
+          </button>
         </div>
       </div>
-      <div class="modal-footer">
-        <button onclick="closeBookingModal()" class="btn btn-outline">Abbrechen</button>
-        <a href="https://www.e-cut.de/online-buchung/index.php?salon=hanselmann_frisuren_leonberg" 
-           target="_blank" 
-           rel="noopener" 
-           class="btn btn-primary">
-          Verstanden – Online buchen
-        </a>
+      
+      <!-- Booking Iframe Step -->
+      <div id="bookingIframe" class="booking-step" style="display: none;">
+        <div class="modal-header">
+          <h2>Online Terminbuchung</h2>
+          <button onclick="showBookingNotice()" class="btn-back" aria-label="Zurück">← Zurück</button>
+        </div>
+        <div class="modal-body booking-iframe-container">
+          <iframe 
+            id="ecutFrame"
+            src="about:blank"
+            data-src="https://www.e-cut.de/online-buchung/index.php?salon=hanselmann_frisuren_leonberg"
+            title="Online Terminbuchung - KERTU Hanselmann Frisuren"
+            frameborder="0"
+            allowfullscreen>
+          </iframe>
+          <div class="iframe-loading">
+            <span class="loading-spinner"></span>
+            <p>Buchungssystem wird geladen...</p>
+          </div>
+        </div>
+        <div class="modal-footer booking-iframe-footer">
+          <a href="https://www.e-cut.de/online-buchung/index.php?salon=hanselmann_frisuren_leonberg" 
+             target="_blank" 
+             rel="noopener" 
+             class="btn btn-outline btn-sm">
+            In neuem Tab öffnen ↗
+          </a>
+          <button onclick="closeBookingModal()" class="btn btn-primary">Fertig</button>
+        </div>
       </div>
     </div>
   </div>
@@ -306,6 +338,9 @@
     function showBookingModal(e) {
       if (e) e.preventDefault();
       const modal = document.getElementById('bookingModal');
+      // Reset to notice step
+      document.getElementById('bookingNotice').style.display = 'block';
+      document.getElementById('bookingIframe').style.display = 'none';
       modal.classList.add('active');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -316,6 +351,38 @@
       modal.classList.remove('active');
       modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
+      // Reset iframe to blank to stop loading
+      const iframe = document.getElementById('ecutFrame');
+      if (iframe) {
+        iframe.src = 'about:blank';
+      }
+      // Reset to notice step for next open
+      document.getElementById('bookingNotice').style.display = 'block';
+      document.getElementById('bookingIframe').style.display = 'none';
+    }
+    
+    function showBookingIframe() {
+      document.getElementById('bookingNotice').style.display = 'none';
+      document.getElementById('bookingIframe').style.display = 'block';
+      const iframe = document.getElementById('ecutFrame');
+      const loadingEl = document.querySelector('.iframe-loading');
+      if (iframe && iframe.dataset.src) {
+        // Show loading indicator
+        if (loadingEl) loadingEl.style.display = 'flex';
+        iframe.src = iframe.dataset.src;
+        iframe.onload = function() {
+          if (loadingEl) loadingEl.style.display = 'none';
+        };
+      }
+    }
+    
+    function showBookingNotice() {
+      document.getElementById('bookingNotice').style.display = 'block';
+      document.getElementById('bookingIframe').style.display = 'none';
+      const iframe = document.getElementById('ecutFrame');
+      if (iframe) {
+        iframe.src = 'about:blank';
+      }
     }
     
     // Close modal on Escape key

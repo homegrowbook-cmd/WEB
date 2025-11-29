@@ -555,36 +555,68 @@
   <!-- BOOKING MODAL -->
   <div id="bookingModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-overlay" onclick="closeBookingModal()"></div>
-    <div class="modal-content">
+    <div class="modal-content modal-content-booking">
       <button class="modal-close" onclick="closeBookingModal()" aria-label="Close">&times;</button>
-      <div class="modal-header">
-        <h2 id="modalTitle">Important Notice for Online Booking</h2>
-      </div>
-      <div class="modal-body">
-        <div class="modal-notice">
-          <p><strong>Highlights & Balayage:</strong></p>
-          <p>
-            Please book highlights and balayage treatments <strong>by phone</strong> 
-            due to scheduling requirements.
-          </p>
-          <p class="modal-phone">
-            <a href="tel:+497152-22216">📞 +49 7152 / 22216</a>
-          </p>
-          <hr>
-          <p class="modal-note">
-            If you book online treatments such as root color, unfortunately we will not be able 
-            to perform foil highlights during these appointments due to time constraints.
-          </p>
+      
+      <!-- Notice Step -->
+      <div id="bookingNotice" class="booking-step">
+        <div class="modal-header">
+          <h2 id="modalTitle">Important Notice for Online Booking</h2>
+        </div>
+        <div class="modal-body">
+          <div class="modal-notice">
+            <p><strong>Highlights & Balayage:</strong></p>
+            <p>
+              Please book highlights and balayage treatments <strong>by phone</strong> 
+              due to scheduling requirements.
+            </p>
+            <p class="modal-phone">
+              <a href="tel:+497152-22216">📞 +49 7152 / 22216</a>
+            </p>
+            <hr>
+            <p class="modal-note">
+              If you book online treatments such as root color, unfortunately we will not be able 
+              to perform foil highlights during these appointments due to time constraints.
+            </p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button onclick="closeBookingModal()" class="btn btn-outline">Cancel</button>
+          <button onclick="showBookingIframe()" class="btn btn-primary">
+            Understood – Book Online
+          </button>
         </div>
       </div>
-      <div class="modal-footer">
-        <button onclick="closeBookingModal()" class="btn btn-outline">Cancel</button>
-        <a href="https://www.e-cut.de/online-buchung/index.php?salon=hanselmann_frisuren_leonberg" 
-           target="_blank" 
-           rel="noopener" 
-           class="btn btn-primary">
-          Understood – Book Online
-        </a>
+      
+      <!-- Booking Iframe Step -->
+      <div id="bookingIframe" class="booking-step" style="display: none;">
+        <div class="modal-header">
+          <h2>Online Appointment Booking</h2>
+          <button onclick="showBookingNotice()" class="btn-back" aria-label="Back">← Back</button>
+        </div>
+        <div class="modal-body booking-iframe-container">
+          <iframe 
+            id="ecutFrame"
+            src="about:blank"
+            data-src="https://www.e-cut.de/online-buchung/index.php?salon=hanselmann_frisuren_leonberg"
+            title="Online Appointment Booking - KERTU Hanselmann Hairdressing"
+            frameborder="0"
+            allowfullscreen>
+          </iframe>
+          <div class="iframe-loading">
+            <span class="loading-spinner"></span>
+            <p>Loading booking system...</p>
+          </div>
+        </div>
+        <div class="modal-footer booking-iframe-footer">
+          <a href="https://www.e-cut.de/online-buchung/index.php?salon=hanselmann_frisuren_leonberg" 
+             target="_blank" 
+             rel="noopener" 
+             class="btn btn-outline btn-sm">
+            Open in new tab ↗
+          </a>
+          <button onclick="closeBookingModal()" class="btn btn-primary">Done</button>
+        </div>
       </div>
     </div>
   </div>
@@ -632,6 +664,9 @@
     function showBookingModal(e) {
       if (e) e.preventDefault();
       const modal = document.getElementById('bookingModal');
+      // Reset to notice step
+      document.getElementById('bookingNotice').style.display = 'block';
+      document.getElementById('bookingIframe').style.display = 'none';
       modal.classList.add('active');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -642,6 +677,38 @@
       modal.classList.remove('active');
       modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
+      // Reset iframe to blank to stop loading
+      const iframe = document.getElementById('ecutFrame');
+      if (iframe) {
+        iframe.src = 'about:blank';
+      }
+      // Reset to notice step for next open
+      document.getElementById('bookingNotice').style.display = 'block';
+      document.getElementById('bookingIframe').style.display = 'none';
+    }
+    
+    function showBookingIframe() {
+      document.getElementById('bookingNotice').style.display = 'none';
+      document.getElementById('bookingIframe').style.display = 'block';
+      const iframe = document.getElementById('ecutFrame');
+      const loadingEl = document.querySelector('.iframe-loading');
+      if (iframe && iframe.dataset.src) {
+        // Show loading indicator
+        if (loadingEl) loadingEl.style.display = 'flex';
+        iframe.src = iframe.dataset.src;
+        iframe.onload = function() {
+          if (loadingEl) loadingEl.style.display = 'none';
+        };
+      }
+    }
+    
+    function showBookingNotice() {
+      document.getElementById('bookingNotice').style.display = 'block';
+      document.getElementById('bookingIframe').style.display = 'none';
+      const iframe = document.getElementById('ecutFrame');
+      if (iframe) {
+        iframe.src = 'about:blank';
+      }
     }
     
     // Close modal on Escape key
