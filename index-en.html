@@ -582,8 +582,7 @@
         <a href="https://www.e-cut.de/online-buchung/index.php?salon=hanselmann_frisuren_leonberg" 
            target="_blank" 
            rel="noopener" 
-           class="btn btn-primary"
-           onclick="closeBookingModal()">
+           class="btn btn-primary">
           Understood – Book Online
         </a>
       </div>
@@ -609,7 +608,7 @@
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
-        if (href !== '#') {
+        if (href.startsWith('#') && href.length > 1) {
           e.preventDefault();
           const target = document.querySelector(href);
           if (target) {
