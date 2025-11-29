@@ -76,11 +76,19 @@
           <h2>Termin vereinbaren</h2>
           <p>
             Für einen Termin erreichen Sie uns am schnellsten telefonisch. 
-            Alternativ können Sie uns auch eine E-Mail schreiben oder das 
-            Kontaktformular nutzen.
+            Alternativ können Sie uns auch eine E-Mail schreiben, das 
+            Kontaktformular nutzen oder online buchen.
           </p>
           
           <div class="contact-methods">
+            <div class="contact-method">
+              <span class="contact-icon">📱</span>
+              <div>
+                <strong>Online Buchen</strong>
+                <a href="#" onclick="showBookingModal(event)" class="contact-link">Jetzt buchen</a>
+              </div>
+            </div>
+            
             <div class="contact-method">
               <span class="contact-icon">📞</span>
               <div>
@@ -246,6 +254,44 @@
     </div>
   </footer>
 
+  <!-- BOOKING MODAL -->
+  <div id="bookingModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-overlay" onclick="closeBookingModal()"></div>
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeBookingModal()" aria-label="Schließen">&times;</button>
+      <div class="modal-header">
+        <h2 id="modalTitle">Wichtiger Hinweis zur Online-Buchung</h2>
+      </div>
+      <div class="modal-body">
+        <div class="modal-notice">
+          <p><strong>Strähnen & Balayage:</strong></p>
+          <p>
+            Bitte buchen Sie Strähnen und Balayage-Behandlungen aus zeitplanungstechnischen Gründen 
+            <strong>telefonisch</strong> bei uns.
+          </p>
+          <p class="modal-phone">
+            <a href="tel:+497152-22216">📞 07152 / 22216</a>
+          </p>
+          <hr>
+          <p class="modal-note">
+            Falls Sie online Behandlungen wie Ansatzfarbe buchen, ist es uns an diesen Terminen 
+            leider aus zeitlichen Gründen nicht möglich, zusätzlich Foliensträhnen durchzuführen.
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button onclick="closeBookingModal()" class="btn btn-outline">Abbrechen</button>
+        <a href="https://www.e-cut.de/online-buchung/index.php?salon=hanselmann_frisuren_leonberg" 
+           target="_blank" 
+           rel="noopener" 
+           class="btn btn-primary"
+           onclick="closeBookingModal()">
+          Verstanden – Online buchen
+        </a>
+      </div>
+    </div>
+  </div>
+
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     const navToggle = document.querySelector('.nav-toggle');
@@ -256,6 +302,29 @@
         navMenu.classList.toggle('active');
       });
     }
+    
+    // Booking Modal Functions
+    function showBookingModal(e) {
+      if (e) e.preventDefault();
+      const modal = document.getElementById('bookingModal');
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeBookingModal() {
+      const modal = document.getElementById('bookingModal');
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeBookingModal();
+      }
+    });
   </script>
   
   <style>
